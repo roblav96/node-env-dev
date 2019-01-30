@@ -1,20 +1,25 @@
 
-// process.on('uncaughtException', function(error) {
-// 	console.error(`████  GLOBAL UNCAUGHT EXCEPTION  ████`)
-// 	console.error(`error ->`, error)
-// })
+process.on('uncaughtException', function(error) {
+	console.error(
+		`████  GLOBAL UNCAUGHT EXCEPTION  ████`,
+		`\nerror ->`, error,
+	)
+})
 
-// process.on('unhandledRejection', function(reason, promise) {
-// 	console.error(`████  GLOBAL UNHANDLED PROMISE REJECTION  ████`)
-// 	console.error(`reason ->`, reason)
-// 	console.error(`promise ->`, promise)
-// 	console.warn(`unhandledRejection invoking process.exit...`)
-// 	process.exit(1)
-// })
+process.on('unhandledRejection', function(reason, promise) {
+	console.error(
+		`████  GLOBAL UNHANDLED PROMISE REJECTION  ████\n`,
+		`\nreason ->`, reason,
+		`\npromise ->`, promise,
+	)
+	// console.warn(`unhandledRejection invoking process.exit...`)
+	// process.exit(1)
+})
 
+// let util: any; try { util = require('util') } catch (_) { }
 try {
-	const util = require('util')
-	Object.assign(util.inspect, {
+	const { inspect } = require('util')
+	Object.assign(inspect, {
 		defaultOptions: {
 			breakLength: Infinity,
 			colors: true,
@@ -26,7 +31,7 @@ try {
 			sorted: true,
 		},
 	})
-	Object.assign(util.inspect, {
+	Object.assign(inspect, {
 		styles: {
 			boolean: 'blue',
 			date: 'green',
@@ -39,6 +44,8 @@ try {
 			undefined: 'red',
 		},
 	})
+	Object.assign(global, { inspect })
+	// global.inspect = util.inspect
 	// console.log(`node-env-dev assigned to util.inspect`)
 	// console.log(`████  ${new Date().toLocaleTimeString()}  ████\n`)
 } catch (error) {
