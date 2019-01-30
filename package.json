@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Get woke with a better Node.js development environment",
 	"files": [
 		"dist/**/*.js"
@@ -8,16 +8,14 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"clean": "del dist node_modules",
-		"prep": "del dist",
-		"release": "npm run -s prep && tsc && np",
-		"start": "npm run -s prep && tsc; node dist/index.js",
-		"watch": "npm run -s prep && onchange --verbose --kill dist/**/*.js -- node dist/index.js & tsc --watch"
+		"prepublishOnly": "del dist && tsc",
+		"start": "del dist && tsc; node dist/index.js",
+		"watch": "del dist && onchange --verbose --kill dist/**/*.js -- node dist/index.js & tsc --watch"
 	},
 	"dependencies": {},
 	"devDependencies": {
 		"@types/node": "latest",
 		"del-cli": "latest",
-		"np": "latest",
 		"onchange": "latest",
 		"typescript": "latest"
 	},
