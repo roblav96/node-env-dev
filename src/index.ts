@@ -1,16 +1,16 @@
 
-process.on('uncaughtException', function(error) {
-	console.error(`████  GLOBAL UNCAUGHT EXCEPTION  ████`)
-	console.error(`error ->`, error)
-})
+// process.on('uncaughtException', function(error) {
+// 	console.error(`████  GLOBAL UNCAUGHT EXCEPTION  ████`)
+// 	console.error(`error ->`, error)
+// })
 
-process.on('unhandledRejection', function(reason, promise) {
-	console.error(`████  GLOBAL UNHANDLED PROMISE REJECTION  ████`)
-	console.error(`reason ->`, reason)
-	console.error(`promise ->`, promise)
-	console.warn(`unhandledRejection invoking process.exit...`)
-	process.exit(1)
-})
+// process.on('unhandledRejection', function(reason, promise) {
+// 	console.error(`████  GLOBAL UNHANDLED PROMISE REJECTION  ████`)
+// 	console.error(`reason ->`, reason)
+// 	console.error(`promise ->`, promise)
+// 	console.warn(`unhandledRejection invoking process.exit...`)
+// 	process.exit(1)
+// })
 
 try {
 	const util = require('util')
@@ -39,8 +39,8 @@ try {
 			undefined: 'red',
 		},
 	})
-	console.log(`node-env-dev assigned to util.inspect`)
+	// console.log(`node-env-dev assigned to util.inspect`)
 	// console.log(`████  ${new Date().toLocaleTimeString()}  ████\n`)
 } catch (error) {
-	console.error(`node-env-dev require catch Error ->`, error)
+	// console.error(`node-env-dev require catch Error ->`, error)
 }
