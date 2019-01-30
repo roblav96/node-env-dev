@@ -1,0 +1,30 @@
+{
+	"name": "node-dev-env",
+	"version": "1.0.0",
+	"description": "Get woke with a better Node.js dev env",
+	"files": [
+		"dist/**/*.js"
+	],
+	"main": "dist/index.js",
+	"scripts": {
+		"clean": "del dist node_modules",
+		"prep": "del dist",
+		"release": "npm run -s prep && tsc && np",
+		"start": "npm run -s prep && tsc; node dist/index.js",
+		"watch": "npm run -s prep && onchange --verbose --kill dist/**/*.js -- node dist/index.js & tsc --watch"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/node": "latest",
+		"del-cli": "latest",
+		"np": "latest",
+		"onchange": "latest",
+		"typescript": "latest"
+	},
+	"keywords": [],
+	"license": "Unlicense",
+	"author": "Robert Laverty <roblav96@gmail.com> (https://github.com/roblav96)",
+	"homepage": "https://github.com/roblav96/node-dev-env#readme",
+	"repository": "github:roblav96/node-dev-env",
+	"bugs": "https://github.com/roblav96/node-dev-env/issues"
+}
