@@ -1,11 +1,12 @@
 {
 	"name": "node-env-dev",
-	"version": "1.0.1",
+	"version": "1.0.3",
 	"description": "Get woke with a better Node.js development environment",
-	"files": [
-		"dist/**/*.js"
-	],
 	"main": "dist/index.js",
+	"files": ["dist/**/*.js"],
+	"bin": {
+		"node-env-dev": "dist/index.js"
+	},
 	"scripts": {
 		"clean": "del dist node_modules",
 		"prepublishOnly": "del dist && tsc",
