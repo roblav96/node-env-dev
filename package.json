@@ -1,7 +1,7 @@
 {
-	"name": "node-dev-env",
+	"name": "node-env-dev",
 	"version": "1.0.0",
-	"description": "Get woke with a better Node.js dev env",
+	"description": "Get woke with a better Node.js development environment",
 	"files": [
 		"dist/**/*.js"
 	],
@@ -24,7 +24,7 @@
 	"keywords": [],
 	"license": "Unlicense",
 	"author": "Robert Laverty <roblav96@gmail.com> (https://github.com/roblav96)",
-	"homepage": "https://github.com/roblav96/node-dev-env#readme",
-	"repository": "github:roblav96/node-dev-env",
-	"bugs": "https://github.com/roblav96/node-dev-env/issues"
+	"homepage": "https://github.com/roblav96/node-env-dev#readme",
+	"repository": "github:roblav96/node-env-dev",
+	"bugs": "https://github.com/roblav96/node-env-dev/issues"
 }
