@@ -1,25 +1,11 @@
+if (global && global.process) {
+	process.on('uncaughtException', error => console.error(`uncaughtException Error ->`, error))
+	process.on('unhandledRejection', reason => console.error(`unhandledRejection Error ->`, reason))
+}
 
-process.on('uncaughtException', function(error) {
-	console.error(
-		`████  GLOBAL UNCAUGHT EXCEPTION  ████`,
-		`\nerror ->`, error,
-	)
-})
-
-process.on('unhandledRejection', function(reason, promise) {
-	console.error(
-		`████  GLOBAL UNHANDLED PROMISE REJECTION  ████\n`,
-		`\nreason ->`, reason,
-		`\npromise ->`, promise,
-	)
-	// console.warn(`unhandledRejection invoking process.exit...`)
-	// process.exit(1)
-})
-
-// let util: any; try { util = require('util') } catch (_) { }
 try {
-	const { inspect } = require('util')
-	Object.assign(inspect, {
+	const util = require('util')
+	Object.assign(util.inspect, {
 		defaultOptions: {
 			breakLength: Infinity,
 			colors: true,
@@ -31,7 +17,7 @@ try {
 			sorted: true,
 		},
 	})
-	Object.assign(inspect, {
+	Object.assign(util.inspect, {
 		styles: {
 			boolean: 'blue',
 			date: 'green',
@@ -44,10 +30,7 @@ try {
 			undefined: 'red',
 		},
 	})
-	Object.assign(global, { inspect })
 	// global.inspect = util.inspect
 	// console.log(`node-env-dev assigned to util.inspect`)
 	// console.log(`████  ${new Date().toLocaleTimeString()}  ████\n`)
-} catch (error) {
-	// console.error(`node-env-dev require catch Error ->`, error)
-}
+} catch {}

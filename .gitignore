@@ -6,8 +6,3 @@ logs
 *.log*
 .*env*
 .*local*
-
-.npm
-.idea
-.vscode
-.DS_Store
