@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 if (global && global.process) {
 	process.on('uncaughtException', error => console.error(`uncaughtException Error ->`, error))
 	process.on('unhandledRejection', reason => console.error(`unhandledRejection Error ->`, reason))
