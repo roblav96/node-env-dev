@@ -1,9 +1,9 @@
 {
 	"name": "node-env-dev",
-	"version": "1.0.9",
+	"version": "1.1.0",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
-	"files": ["dist/**/*.js"],
+	"files": ["dist"],
 	"bin": {
 		"node-env-dev": "dist/index.js"
 	},
