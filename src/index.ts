@@ -1,8 +1,17 @@
 #!/usr/bin/env node
 
-if (global && global.process) {
-	process.on('uncaughtException', error => console.error(`uncaughtException Error ->`, error))
-	process.on('unhandledRejection', reason => console.error(`unhandledRejection Error ->`, reason))
+import 'source-map-support/register'
+
+function onerror(message: string, error: Error) {
+	if (typeof error == 'object' && error.toString) {
+		message += ` ${error.toString()}`
+	}
+	console.error(`${message} -> %O`, error)
+}
+
+if (typeof global == 'object' && global.process) {
+	process.on('uncaughtException', (error: Error) => onerror('Uncaught Exception', error))
+	process.on('unhandledRejection', (error: Error) => onerror('Unhandled Rejection', error))
 }
 
 try {
