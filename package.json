@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.1.7",
+	"version": "1.1.9",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [

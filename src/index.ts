@@ -2,18 +2,6 @@
 
 import 'source-map-support/register'
 
-function onerror(message: string, error: Error) {
-	if (typeof error == 'object' && error.toString) {
-		message += ` ${error.toString()}`
-	}
-	console.error(`${message} -> %O`, error)
-}
-
-if (typeof global == 'object' && global.process) {
-	process.on('uncaughtException', (error: Error) => onerror('Uncaught Exception', error))
-	process.on('unhandledRejection', (error: Error) => onerror('Unhandled Rejection', error))
-}
-
 try {
 	const util = require('util')
 	Object.assign(util.inspect.defaultOptions, {
@@ -26,6 +14,10 @@ try {
 		showProxy: false,
 		sorted: true,
 	})
+} catch {}
+
+try {
+	const util = require('util')
 	Object.assign(util.inspect.styles, {
 		boolean: 'blue',
 		date: 'green',
@@ -37,7 +29,26 @@ try {
 		symbol: 'grey',
 		undefined: 'red',
 	})
-	// global.inspect = util.inspect
-	// console.log(`node-env-dev assigned to util.inspect`)
-	// console.log(`████  ${new Date().toLocaleTimeString()}  ████\n`)
 } catch {}
+
+function onerror(message: string, error: Error) {
+	// if (typeof error == 'object' && typeof error.toString == 'function') {
+	// 	message += ` ${error.toString()}`
+	// }
+	console.error(`${message} -> %O`, error)
+}
+if (typeof global == 'object' && typeof global.process == 'object') {
+	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
+	global.process.on('uncaughtException', (error: Error) => onerror('Uncaught Exception', error))
+	global.process.on('unhandledRejection', (error: Error) => onerror('Unhandled Rejection', error))
+}
+declare global {
+	namespace NodeJS {
+		interface Process {
+			DEVELOPMENT: boolean
+		}
+		interface ProcessEnv {
+			NODE_ENV: string
+		}
+	}
+}
