@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.4.1",
+	"version": "1.6.0",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [
@@ -10,18 +10,20 @@
 		"node-env-dev": "dist/index.js"
 	},
 	"scripts": {
-		"clean": "del dist node_modules",
-		"prepublishOnly": "del dist; tsc -d",
-		"start": "del dist; tsc; node dist/index.js",
-		"watch": "del dist; onchange --verbose --kill dist/**/*.js -- node dist/index.js & tsc --watch"
+		"del": "del dist node_modules",
+		"prepublishOnly": "del dist; tsc -d"
 	},
 	"dependencies": {
+		"ansi-colors": "^3.2.4",
+		"dayjs": "^1.8.14",
+		"exit-hook": "^2.2.0",
+		"mri": "^1.1.4",
 		"source-map-support": "^0.5.12"
 	},
 	"devDependencies": {
+		"@types/mri": "^1.1.0",
 		"@types/node": "^11.13.13",
 		"del-cli": "^2.0.0",
-		"onchange": "^6.0.0",
 		"typescript": "^3.5.1"
 	},
 	"keywords": [

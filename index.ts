@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 
 import 'source-map-support/register'
-
-setInterval(Function, 1 << 30)
+import * as ansi from 'ansi-colors'
+import * as dayjs from 'dayjs'
+import * as inspector from 'inspector'
+import * as mri from 'mri'
+import * as util from 'util'
+import exithook = require('exit-hook')
 
 try {
-	const util = require('util')
 	Object.assign(util.inspect.defaultOptions, {
 		breakLength: Infinity,
 		colors: true,
@@ -19,7 +22,6 @@ try {
 } catch {}
 
 try {
-	const util = require('util')
 	Object.assign(util.inspect.styles, {
 		boolean: 'blue',
 		date: 'green',
@@ -44,15 +46,25 @@ try {
 } catch {}
 
 try {
-	let isNodeJS = new Function('try { return this === global; } catch(e) { return false }')()
-	if (isNodeJS) {
-		let stdout = (console as any)._stdout as NodeJS.WriteStream
-		if (stdout.isTTY) {
-			stdout.isTTY = false as any
-			process.nextTick(() => (stdout.isTTY = true))
-		}
-		console.clear()
+	exithook(() => inspector.close())
+
+	process.args = mri(process.argv.slice(2))
+
+	let banner = `
+	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
+	      ${ansi.cyan.bold(dayjs().format('hh:mm:ss A'))}
+	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
+	`
+	console.log(`\n${banner.replace(/\t/g, '').trim()}\n`)
+
+	let stdout = (console as any)._stdout as NodeJS.WriteStream
+	if (stdout.isTTY) {
+		stdout.isTTY = false as any
+		process.nextTick(() => (stdout.isTTY = true))
 	}
+	console.clear()
+
+	// setInterval(Function, 1 << 30)
 } catch {}
 
 declare global {
@@ -60,6 +72,7 @@ declare global {
 	namespace NodeJS {
 		interface Process {
 			DEVELOPMENT: boolean
+			args: mri.Argv
 		}
 		interface ProcessEnv {
 			NODE_ENV: string

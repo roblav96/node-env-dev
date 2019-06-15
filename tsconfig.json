@@ -1,12 +1,11 @@
 {
 	"compilerOptions": {
 		"lib": ["esnext"],
-		"noErrorTruncation": true,
 		"outDir": "dist",
 		"preserveWatchOutput": true,
 		"sourceMap": true,
 		"target": "es5"
 	},
 	"exclude": ["node_modules", "dist"],
-	"include": ["types/**/*.d.ts", "src/**/*.ts"]
+	"include": ["*.ts"]
 }
