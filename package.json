@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.1.9",
+	"version": "1.2.2",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [
@@ -16,13 +16,13 @@
 		"watch": "del dist && onchange --verbose --kill dist/**/*.js -- node dist/index.js & tsc --watch"
 	},
 	"dependencies": {
-		"source-map-support": "^0.5.11"
+		"source-map-support": "^0.5.12"
 	},
 	"devDependencies": {
-		"@types/node": "^11.13.0",
-		"del-cli": "^1.1.0",
-		"onchange": "^5.2.0",
-		"typescript": "^3.4.1"
+		"@types/node": "^11.13.13",
+		"del-cli": "^2.0.0",
+		"onchange": "^6.0.0",
+		"typescript": "^3.5.1"
 	},
 	"keywords": [
 		"catcher",

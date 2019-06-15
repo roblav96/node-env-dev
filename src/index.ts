@@ -2,6 +2,8 @@
 
 import 'source-map-support/register'
 
+setInterval(Function, 1 << 30)
+
 try {
 	const util = require('util')
 	Object.assign(util.inspect.defaultOptions, {
@@ -31,17 +33,28 @@ try {
 	})
 } catch {}
 
-function onerror(message: string, error: Error) {
-	// if (typeof error == 'object' && typeof error.toString == 'function') {
-	// 	message += ` ${error.toString()}`
-	// }
-	console.error(`${message} -> %O`, error)
-}
-if (typeof global == 'object' && typeof global.process == 'object') {
+try {
 	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
-	global.process.on('uncaughtException', (error: Error) => onerror('Uncaught Exception', error))
-	global.process.on('unhandledRejection', (error: Error) => onerror('Unhandled Rejection', error))
-}
+	global.process.on('uncaughtException', (error: Error) =>
+		console.error(`Uncaught Exception -> %0`, error)
+	)
+	global.process.on('unhandledRejection', (error: Error) =>
+		console.error(`Unhandled Rejection -> %0`, error)
+	)
+} catch {}
+
+try {
+	let isNodeJS = new Function('try { return this === global; } catch(e) { return false }')()
+	if (isNodeJS) {
+		let stdout = (console as any)._stdout as NodeJS.WriteStream
+		if (stdout.isTTY) {
+			stdout.isTTY = false as any
+			process.nextTick(() => (stdout.isTTY = true))
+		}
+		console.clear()
+	}
+} catch {}
+
 declare global {
 	namespace NodeJS {
 		interface Process {
