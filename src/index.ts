@@ -35,11 +35,11 @@ try {
 
 try {
 	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
-	global.process.on('uncaughtException', (error: Error) =>
-		console.error(`Uncaught Exception -> %0`, error)
+	global.process.on('uncaughtException', error =>
+		console.error(`Uncaught Exception -> %O`, error)
 	)
-	global.process.on('unhandledRejection', (error: Error) =>
-		console.error(`Unhandled Rejection -> %0`, error)
+	global.process.on('unhandledRejection', error =>
+		console.error(`Unhandled Rejection -> %O`, error)
 	)
 } catch {}
 
@@ -56,6 +56,7 @@ try {
 } catch {}
 
 declare global {
+	var process: NodeJS.Process
 	namespace NodeJS {
 		interface Process {
 			DEVELOPMENT: boolean
