@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import 'source-map-support/register'
+require('source-map-support').install({ handleUncaughtExceptions: false })
 import * as ansi from 'ansi-colors'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
@@ -23,8 +23,10 @@ try {
 
 try {
 	Object.assign(util.inspect.styles, {
+		bigint: 'magenta',
 		boolean: 'blue',
 		date: 'green',
+		module: 'underline',
 		null: 'red',
 		number: 'magenta',
 		regexp: 'green',
@@ -37,34 +39,32 @@ try {
 
 try {
 	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
-	global.process.on('uncaughtException', error =>
-		console.error(`Uncaught Exception -> %O`, error)
+	global.process.on('uncaughtException' as any, (error, origin) =>
+		console.error(`[Uncaught Exception]`, `origin -> %O`, origin, `error -> %O`, error),
 	)
-	global.process.on('unhandledRejection', error =>
-		console.error(`Unhandled Rejection -> %O`, error)
+	global.process.on('unhandledRejection', (reason, promise) =>
+		console.error(`[Unhandled Rejection]`, `reason -> %O`, reason, `promise -> %O`, promise),
 	)
 } catch {}
 
 try {
-	exithook(() => inspector.close())
-
 	process.args = mri(process.argv.slice(2))
 
-	let banner = `
-	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
+	let banner = `${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
 	      ${ansi.cyan.bold(dayjs().format('hh:mm:ss A'))}
-	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
-	`
+	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}`
 	console.log(`\n${banner.replace(/\t/g, '').trim()}\n`)
 
-	let stdout = (console as any)._stdout as NodeJS.WriteStream
-	if (stdout.isTTY) {
-		stdout.isTTY = false as any
-		process.nextTick(() => (stdout.isTTY = true))
+	if (inspector.url()) {
+		setInterval(Function, 1 << 30)
+		exithook(() => inspector.close())
+		let stdout = (console as any)._stdout as NodeJS.WriteStream
+		if (stdout.isTTY) {
+			stdout.isTTY = false as any
+			process.nextTick(() => (stdout.isTTY = true))
+		}
+		console.clear()
 	}
-	console.clear()
-
-	// setInterval(Function, 1 << 30)
 } catch {}
 
 declare global {
