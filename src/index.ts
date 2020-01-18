@@ -3,7 +3,6 @@
 import * as ansi from 'ansi-colors'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
-import * as mri from 'mri'
 import * as util from 'util'
 import exithook = require('exit-hook')
 
@@ -47,19 +46,18 @@ try {
 } catch {}
 
 try {
-	process.args = mri(process.argv.slice(2))
-
 	let banner = `${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}
 	      ${ansi.cyan.bold(dayjs().format('hh:mm:ss A'))}
 	${ansi.dim('■■■■■■■■■■■■■■■■■■■■■■■')}`
 	console.log(`\n${banner.replace(/\t/g, '').trim()}\n`)
 
 	if (inspector.url()) {
-		setInterval(Function, 1 << 30)
+		let timeout = setInterval(Function, 1 << 30)
+		exithook(() => clearTimeout(timeout))
 		exithook(() => inspector.close())
 		let stdout = (console as any)._stdout as NodeJS.WriteStream
-		if (stdout.isTTY) {
-			stdout.isTTY = false as any
+		if (stdout.isTTY == true) {
+			stdout.isTTY = false
 			process.nextTick(() => (stdout.isTTY = true))
 		}
 		console.clear()
@@ -67,11 +65,9 @@ try {
 } catch {}
 
 declare global {
-	var process: NodeJS.Process
 	namespace NodeJS {
 		interface Process {
 			DEVELOPMENT: boolean
-			args: mri.Argv
 		}
 		interface ProcessEnv {
 			NODE_ENV: string
