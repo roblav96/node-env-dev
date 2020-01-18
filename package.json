@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.7.4",
+	"version": "1.8.0",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [
@@ -17,8 +17,7 @@
 		"ansi-colors": "^4.1.1",
 		"dayjs": "^1.8.19",
 		"exit-hook": "^2.2.0",
-		"mri": "^1.1.4",
-		"source-map-support": "^0.5.16"
+		"mri": "^1.1.4"
 	},
 	"devDependencies": {
 		"@types/mri": "^1.1.0",

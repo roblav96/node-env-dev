@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-require('source-map-support').install({ handleUncaughtExceptions: false })
 import * as ansi from 'ansi-colors'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
