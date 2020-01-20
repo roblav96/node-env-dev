@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+require('source-map-support').install({ handleUncaughtExceptions: false })
 import * as ansi from 'ansi-colors'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
@@ -38,10 +39,10 @@ try {
 try {
 	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
 	global.process.on('uncaughtException' as any, (error, origin) =>
-		console.error(`[Uncaught Exception]`, `origin -> %O`, origin, `error -> %O`, error),
+		console.error(`[UNCAUGHT EXCEPTION] origin -> '${origin}' %O`, error),
 	)
-	global.process.on('unhandledRejection', (reason, promise) =>
-		console.error(`[Unhandled Rejection]`, `reason -> %O`, reason, `promise -> %O`, promise),
+	global.process.on('unhandledRejection', error =>
+		console.error(`[UNHANDLED REJECTION] %O`, error),
 	)
 } catch {}
 
