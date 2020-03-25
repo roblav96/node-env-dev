@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-require('source-map-support').install({ handleUncaughtExceptions: false })
+import * as sourceMapSupport from 'source-map-support'
+sourceMapSupport.install({
+	handleUncaughtExceptions: false,
+})
+
 import * as ansi from 'ansi-colors'
+import * as cleanStack from 'clean-stack'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
 import * as util from 'util'
@@ -38,12 +43,14 @@ try {
 
 try {
 	global.process.DEVELOPMENT = global.process.env.NODE_ENV == 'development'
-	global.process.on('uncaughtException' as any, (error, origin) =>
-		console.error(`[UNCAUGHT EXCEPTION] origin -> '${origin}' %O`, error),
-	)
-	global.process.on('unhandledRejection', error =>
-		console.error(`[UNHANDLED REJECTION] %O`, error),
-	)
+	global.process.on('uncaughtException' as any, (error: Error, origin: string) => {
+		error.stack && Object.assign(error, { stack: cleanStack(error.stack) })
+		console.error(`${ansi.red.bold('[UNCAUGHT EXCEPTION]')}\n%O`, error)
+	})
+	global.process.on('unhandledRejection', (reason: Error, promise) => {
+		reason.stack && Object.assign(reason, { stack: cleanStack(reason.stack) })
+		console.error(`${ansi.red.bold('[UNHANDLED REJECTION]')}\n%O`, reason)
+	})
 } catch {}
 
 try {

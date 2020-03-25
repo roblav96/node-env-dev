@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.8.5",
+	"version": "1.8.14",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [
@@ -15,12 +15,14 @@
 	},
 	"dependencies": {
 		"ansi-colors": "^4.1.1",
+		"clean-stack": "^2.2.0",
 		"dayjs": "^1.8.19",
 		"exit-hook": "^2.2.0",
 		"source-map-support": "^0.5.16"
 	},
 	"devDependencies": {
 		"@types/node": "^13.1.8",
+		"@types/source-map-support": "^0.5.1",
 		"del-cli": "^3.0.0",
 		"typescript": "^3.7.5"
 	},
