@@ -71,7 +71,7 @@ if (inspector.url()) {
 }
 if (process.env.NODE_ENV == 'development') {
 	let now = dayjs().format('hh:mm:ss A')
-	console.log(`\n${ansi.dim('████  ')}${ansi.magenta.bold(now)}${ansi.dim('  ████')}\n`)
+	console.log(`\n${ansi.dim('████  ')}${ansi.cyan.bold(now)}${ansi.dim('  ████')}\n`)
 }
 if (inspector.url()) {
 	inspector.console.clear()
