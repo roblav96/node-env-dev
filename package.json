@@ -1,13 +1,13 @@
 {
 	"name": "node-env-dev",
-	"version": "1.8.30",
+	"version": "1.8.38",
 	"description": "Get woke with a better Node.js development environment",
-	"main": "dist/index.js",
+	"main": "dist/node-env-dev.js",
 	"files": [
 		"dist"
 	],
 	"bin": {
-		"node-env-dev": "dist/index.js"
+		"node-env-dev": "dist/node-env-dev.js"
 	},
 	"scripts": {
 		"del": "del dist node_modules",
