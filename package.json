@@ -1,6 +1,6 @@
 {
 	"name": "node-env-dev",
-	"version": "1.8.14",
+	"version": "1.8.30",
 	"description": "Get woke with a better Node.js development environment",
 	"main": "dist/index.js",
 	"files": [
@@ -15,16 +15,16 @@
 	},
 	"dependencies": {
 		"ansi-colors": "^4.1.1",
-		"clean-stack": "^2.2.0",
-		"dayjs": "^1.8.19",
+		"clean-stack": "^3.0.0",
+		"dayjs": "^1.8.29",
 		"exit-hook": "^2.2.0",
-		"source-map-support": "^0.5.16"
+		"source-map-support": "^0.5.19"
 	},
 	"devDependencies": {
-		"@types/node": "^13.1.8",
-		"@types/source-map-support": "^0.5.1",
-		"del-cli": "^3.0.0",
-		"typescript": "^3.7.5"
+		"@types/node": "^14.0.23",
+		"@types/source-map-support": "^0.5.2",
+		"del-cli": "^3.0.1",
+		"typescript": "^3.9.6"
 	},
 	"keywords": [
 		"catcher",
