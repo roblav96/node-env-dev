@@ -40,13 +40,12 @@ Object.assign(util.inspect.defaultOptions, {
 } as util.InspectOptions)
 
 export function depth(depth = Infinity) {
-	Object.assign(util.inspect.defaultOptions, { depth })
+	util.inspect.defaultOptions.depth = depth
 }
 export function getters(getters = true as 'get' | 'set' | boolean) {
-	Object.assign(util.inspect.defaultOptions, { getters })
+	util.inspect.defaultOptions.getters = getters
 }
 
-process.DEVELOPMENT = process.env.NODE_ENV == 'development'
 process.on('uncaughtException', (error: Error, origin: string) => {
 	console.error(`${ansi.red.bold('[UNCAUGHT EXCEPTION]')}\n%O`, toCleanStack(error))
 })
@@ -63,8 +62,9 @@ function toCleanStack(error: Error) {
 	return error
 }
 
+process.DEVELOPMENT = process.env.NODE_ENV == 'development'
 if (inspector.url()) {
-	inspector.waitForDebugger()
+	// inspector.waitForDebugger()
 	let timeout = setInterval(Function, 1 << 30)
 	exithook(() => clearTimeout(timeout))
 	exithook(() => inspector.close())
