@@ -1,16 +1,16 @@
-#!/usr/bin/env node
-
-import * as sourceMapSupport from 'source-map-support'
-sourceMapSupport.install({
-	handleUncaughtExceptions: false,
-})
+if (!process.execArgv.includes('--enable-source-maps')) {
+	const sourceMapSupport = require('source-map-support') as typeof import('source-map-support')
+	sourceMapSupport.install({
+		handleUncaughtExceptions: false,
+	})
+}
 
 import * as ansi from 'ansi-colors'
 import * as cleanStack from 'clean-stack'
 import * as dayjs from 'dayjs'
 import * as inspector from 'inspector'
 import * as util from 'util'
-import exithook = require('exit-hook')
+import exitHook = require('exit-hook')
 
 Object.assign(util.inspect.styles, {
 	bigint: 'magenta',
@@ -24,7 +24,7 @@ Object.assign(util.inspect.styles, {
 	string: 'green',
 	symbol: 'grey',
 	undefined: 'red',
-} as { [K in util.Style]: string })
+} as typeof util.inspect.styles)
 
 Object.assign(util.inspect.defaultOptions, {
 	breakLength: Infinity,
@@ -37,37 +37,36 @@ Object.assign(util.inspect.defaultOptions, {
 	showHidden: false,
 	showProxy: false,
 	sorted: true,
-} as util.InspectOptions)
+} as typeof util.inspect.defaultOptions)
 
-export function depth(depth = Infinity) {
+export function depth(depth = Infinity as typeof util.inspect.defaultOptions.depth) {
 	util.inspect.defaultOptions.depth = depth
 }
-export function getters(getters = true as 'get' | 'set' | boolean) {
+export function getters(getters = true as typeof util.inspect.defaultOptions.getters) {
 	util.inspect.defaultOptions.getters = getters
 }
 
+function toCleanStack(error: Error) {
+	if (error?.stack?.length) {
+		let stack = cleanStack(error.stack)
+		if (stack?.trim().length) {
+			Object.assign(error, { stack })
+		}
+	}
+	return error
+}
 process.on('uncaughtException', (error: Error, origin: string) => {
 	console.error(`${ansi.red.bold('[UNCAUGHT EXCEPTION]')}\n%O`, toCleanStack(error))
 })
 process.on('unhandledRejection', (reason: Error, promise: Promise<any>) => {
 	console.error(`${ansi.red.bold('[UNHANDLED REJECTION]')}\n%O`, toCleanStack(reason))
 })
-function toCleanStack(error: Error) {
-	if (util.isObject(error) && util.isString(error.stack)) {
-		let stack = cleanStack(error.stack)
-		if (util.isString(stack) && stack.trim()) {
-			Object.assign(error, { stack })
-		}
-	}
-	return error
-}
 
-process.DEVELOPMENT = process.env.NODE_ENV == 'development'
 if (inspector.url()) {
 	// inspector.waitForDebugger()
 	let timeout = setInterval(Function, 1 << 30)
-	exithook(() => clearTimeout(timeout))
-	exithook(() => inspector.close())
+	exitHook(() => clearTimeout(timeout))
+	exitHook(() => inspector.close())
 }
 if (process.env.NODE_ENV == 'development') {
 	let now = dayjs().format('hh:mm:ss A')
@@ -77,16 +76,6 @@ if (inspector.url()) {
 	inspector.console.clear()
 }
 
-declare global {
-	namespace NodeJS {
-		interface Process {
-			DEVELOPMENT: boolean
-		}
-		interface ProcessEnv {
-			NODE_ENV: string
-		}
-	}
-}
 declare module 'inspector' {
 	var console: Console
 }
