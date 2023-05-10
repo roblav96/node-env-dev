@@ -3,6 +3,7 @@
 		"lib": ["esnext"],
 		"module": "commonjs",
 		"outDir": "dist",
+		"sourceMap": true,
 		"target": "es2017"
 	},
 	"exclude": ["dist", "node_modules"],
