@@ -1,45 +1,45 @@
 {
-	"name": "node-env-dev",
-	"version": "1.9.1",
-	"description": "Get woke with a better Node.js development environment",
-	"main": "dist/main.js",
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"del": "del dist node_modules",
-		"prepublishOnly": "del dist; tsc --declaration"
-	},
-	"dependencies": {
-		"ansi-colors": "^4.1.1",
-		"clean-stack": "^3.0.0",
-		"dayjs": "^1.9.1",
-		"exit-hook": "^2.2.0",
-		"source-map-support": "^0.5.19"
-	},
-	"devDependencies": {
-		"@types/node": "^14.11.2",
-		"@types/source-map-support": "^0.5.3",
-		"del-cli": "^3.0.1",
-		"ts-node": "^9.0.0",
-		"typescript": "^4.0.3"
-	},
-	"keywords": [
-		"catcher",
-		"catching",
-		"console",
-		"dev",
-		"development",
-		"env",
-		"environment",
-		"error",
-		"log",
-		"pretty",
-		"woke"
-	],
-	"license": "Unlicense",
-	"author": "Robert Laverty <roblav96@gmail.com> (https://github.com/roblav96)",
-	"homepage": "https://github.com/roblav96/node-env-dev#readme",
-	"repository": "github:roblav96/node-env-dev",
-	"bugs": "https://github.com/roblav96/node-env-dev/issues"
+  "name": "node-env-dev",
+  "version": "2.0.1",
+  "description": "Get woke with a better Node.js development environment",
+  "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "del": "del dist node_modules",
+    "prepublishOnly": "del dist; tsc --declaration"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.1",
+    "clean-stack": "^3.0.0",
+    "dayjs": "^1.9.1",
+    "exit-hook": "^2.2.0",
+    "source-map-support": "^0.5.19"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@types/source-map-support": "^0.5.3",
+    "del-cli": "^5.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  },
+  "keywords": [
+    "catcher",
+    "catching",
+    "console",
+    "dev",
+    "development",
+    "env",
+    "environment",
+    "error",
+    "log",
+    "pretty",
+    "woke"
+  ],
+  "license": "Unlicense",
+  "author": "Robert Laverty <roblav96@gmail.com> (https://github.com/roblav96)",
+  "homepage": "https://github.com/roblav96/node-env-dev#readme",
+  "repository": "github:roblav96/node-env-dev",
+  "bugs": "https://github.com/roblav96/node-env-dev/issues"
 }
