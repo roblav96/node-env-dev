@@ -1,4 +1,4 @@
-if (!process.execArgv.includes("--enable-source-maps")) {
+if ('NODE_ENV_DEV_SOURCE_MAP_SUPPORT' in process.env) {
   const sourceMapSupport =
     require("source-map-support") as typeof import("source-map-support");
   sourceMapSupport.install({
