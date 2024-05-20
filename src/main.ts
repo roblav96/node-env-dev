@@ -31,7 +31,10 @@ Object.assign(util.inspect.defaultOptions, {
   breakLength: Infinity,
   colors: true,
   compact: false,
-  depth: 4,
+  depth:
+    "NODE_ENV_DEV_DEPTH" in process.env
+      ? Number(process.env.NODE_ENV_DEV_DEPTH)
+      : 4,
   getters: false,
   maxArrayLength: Infinity,
   maxStringLength: Infinity,
