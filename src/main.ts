@@ -7,12 +7,12 @@ if ("NODE_ENV_DEV_SOURCE_MAP_SUPPORT" in process.env) {
 }
 
 import * as ansi from "ansi-colors";
+import * as clipboard from "clipboardy";
 import * as dayjs from "dayjs";
 import * as inspector from "inspector";
 import * as util from "util";
-import cleanStack from "clean-stack";
-import clipboard from "clipboardy";
-import exitHook from "exit-hook";
+import cleanStack = require("clean-stack");
+import exitHook = require("exit-hook");
 
 Object.assign(util.inspect.styles, {
   bigint: "magenta",
@@ -59,7 +59,6 @@ Object.assign(console, {
     console.info("[clipboard]", label);
   },
 });
-
 declare global {
   interface Console {
     clipboard(label: string, value: any): void;
