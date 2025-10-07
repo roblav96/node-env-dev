@@ -7,11 +7,12 @@ if ("NODE_ENV_DEV_SOURCE_MAP_SUPPORT" in process.env) {
 }
 
 import * as ansi from "ansi-colors";
-import cleanStack = require("clean-stack");
 import * as dayjs from "dayjs";
-import exitHook = require("exit-hook");
 import * as inspector from "inspector";
 import * as util from "util";
+import cleanStack from "clean-stack";
+import clipboard from "clipboardy";
+import exitHook from "exit-hook";
 
 Object.assign(util.inspect.styles, {
   bigint: "magenta",
@@ -43,15 +44,26 @@ Object.assign(util.inspect.defaultOptions, {
   sorted: true,
 } as typeof util.inspect.defaultOptions);
 
-export function depth(
-  depth = Infinity as typeof util.inspect.defaultOptions.depth
-) {
+export function depth(depth = 4 as typeof util.inspect.defaultOptions.depth) {
   util.inspect.defaultOptions.depth = depth;
 }
 export function getters(
-  getters = true as typeof util.inspect.defaultOptions.getters
+  getters = false as typeof util.inspect.defaultOptions.getters
 ) {
   util.inspect.defaultOptions.getters = getters;
+}
+
+Object.assign(console, {
+  clipboard(label: string, value: any) {
+    clipboard.writeSync(value);
+    console.info("[clipboard]", label);
+  },
+});
+
+declare global {
+  interface Console {
+    clipboard(label: string, value: any): void;
+  }
 }
 
 function toCleanStack(error: Error) {
@@ -92,6 +104,6 @@ if (inspector.url()) {
   inspector.console.clear();
 }
 
-declare module "inspector" {
-  var console: Console;
-}
+// declare module "inspector" {
+//   var console: Console;
+// }
